@@ -14,7 +14,6 @@
 
   <!-- LISTADO -->
   <div class="mt-4 flex flex-col col-span-2">
-    <h3>Issues: </h3>
     <a routerlink="/issue/123">Ir a issue 123</a>
     <!-- Todo: LISTADO de issues -->
 
@@ -25,14 +24,13 @@
 
   <!-- LABELS -->
    <div>
-    <h2>Labels: </h2>
     <!-- Todo: Spinner -->
      @if ( labelsQuery.isLoading() ) {
       <p>Estamos cargando...</p>
      } @else {
-      <pre>
-        {{ labelsQuery.data() | json  }}
-      </pre>
+      <issues-labels-selector
+        [labels]="labelsQuery.data() ?? []"
+      ></issues-labels-selector>
      }
 
     <!-- Todo: Label Selector -->
