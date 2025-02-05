@@ -6,9 +6,21 @@
   <!-- PARA CONTROLAR EL ESTADO -->
   <div class="flex flex-col col-span-3">
     <div class="flex gap-2">
-      <button class="btn">All</button>
-      <button class="btn">Open</button>
-      <button class="btn">Close</button>
+      <button
+        [class.active]=" issuesService.selectedState() == 'all' "
+        class="btn"
+        (click)="onChangeState('all')"
+      >All</button>
+      <button
+        [class.active]=" issuesService.selectedState() == 'open' "
+        class="btn"
+        (click)="onChangeState('open')"
+      >Open</button>
+      <button
+        [class.active]=" issuesService.selectedState() == 'closed' "
+        class="btn"
+        (click)="onChangeState('closed')"
+      >Close</button>
     </div>
   </div>
 
