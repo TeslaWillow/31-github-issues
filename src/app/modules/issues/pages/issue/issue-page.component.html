@@ -9,3 +9,15 @@
     [issue]="issueQuery.data()!"
   />
 }
+
+@if ( commentsQuery.data() === undefined ) {
+  <p>Cargando...</p>
+} @else {
+  @for ( comment of commentsQuery.data(); track comment.id) {
+    <issue-comment
+      [issue]="comment"
+    />
+  } @empty {
+    <p>No hay comentarios</p>
+  }
+}

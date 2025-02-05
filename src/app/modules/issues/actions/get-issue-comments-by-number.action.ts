@@ -5,13 +5,13 @@ import { GithubIssue } from "../interfaces";
 const BASE_URL = environment.baseUrl;
 const GITHUB_TOKEN = environment.githubToken;
 
-export const getIssueByNumber = async( issueNumber: string ): Promise<GithubIssue> => {
+export const getIssueCommentsByNumber = async( issueNumber: string ): Promise<GithubIssue[]> => {
 
   sleep(1500);
 
   try {
     const resp = await fetch(
-      `${BASE_URL}/issues/${ issueNumber }`,
+      `${BASE_URL}/issues/${ issueNumber }/comments`,
       {
         headers: {
           Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -20,11 +20,11 @@ export const getIssueByNumber = async( issueNumber: string ): Promise<GithubIssu
     );
     if( !resp.ok ) throw 'Cant load issue';
 
-    const issue: GithubIssue = await resp.json() as GithubIssue;
+    const issues: GithubIssue[] = await resp.json() as GithubIssue[];
 
-    console.log({ issue });
+    console.log({ issues });
 
-    return issue;
+    return issues;
   } catch (error) {
     throw 'Cant load issue';
   }
