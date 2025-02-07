@@ -22,8 +22,6 @@ export const getIssueCommentsByNumber = async( issueNumber: string ): Promise<Gi
 
     const issues: GithubIssue[] = await resp.json() as GithubIssue[];
 
-    console.log({ issues });
-
     return issues;
   } catch (error) {
     throw `Cant load comment ${issueNumber}`;

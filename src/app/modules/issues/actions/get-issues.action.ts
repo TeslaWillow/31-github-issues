@@ -33,8 +33,6 @@ export const getIssues = async(
 
     const labels: GithubIssue[] = await resp.json() as GithubIssue[];
 
-    console.log({ labels });
-
     return labels;
   } catch (error) {
     throw 'Cant load issues';
