@@ -11,7 +11,7 @@ export const getIssues = async(
   selectedLabels: string[]
 ): Promise<GithubIssue[]> => {
 
-  sleep(1500);
+  // sleep(1500);
 
   const params = new URLSearchParams();
   params.append('state', state);

@@ -2,6 +2,7 @@
 import { TestBed } from "@angular/core/testing";
 import { IssuesService } from "./issues.service";
 import { provideTanStackQuery, QueryClient } from "@tanstack/angular-query-experimental";
+import { State } from "../interfaces";
 
 describe('IssuesService', () => {
 
@@ -35,6 +36,27 @@ describe('IssuesService', () => {
       expect(typeof label.color).toBe("string");
       expect(typeof label.default).toBe("boolean");
       expect(typeof label.description).toBe("string");
+
+  });
+
+  it('should set selected state, OPEN, CLOSED, ALL', async() => {
+
+    // Test from endpoint that all the issues are in the state closed
+    service.showIssuesByState( State.Close );
+    expect( service.selectedState() ).toBe( State.Close );
+
+    const { data } = await service.issuesQuery.refetch();
+    data?.forEach((issue) => {
+      expect(issue.state).toBe(State.Close);
+    });
+
+    service.showIssuesByState( State.Open );
+    expect( service.selectedState() ).toBe( State.Open );
+
+    const { data:dataOpen } = await service.issuesQuery.refetch();
+    dataOpen?.forEach((issue) => {
+      expect(issue.state).toBe(State.Open);
+    });
 
   });
 
