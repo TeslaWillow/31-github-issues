@@ -28,4 +28,31 @@ describe('GetIssue By Number action', () => {
       }
     });
   });
+
+  it('should not fetch issue successfully', async () => {
+    const requestURL = `${BASE_URL}/issues/${issueNumber}`;
+    const issueResponse = new Response(  null, {
+      status: 404,
+      statusText: 'Not found',
+    } );
+
+    spyOn(window, 'fetch').and.resolveTo(issueResponse);
+
+    try {
+      const issue = await getIssueByNumber(issueNumber);
+      expect(true).toBe(false); // It dont be executed
+    } catch (error) {
+
+      expect(error).toBe(`Cant load issue ${issueNumber}`);
+
+    }
+
+    // expect(window.fetch).toHaveBeenCalledWith(requestURL, {
+    //   headers: {
+    //     Authorization: `Bearer ${GITHUB_TOKEN}`,
+    //   }
+    // });
+  });
+
+
 });
